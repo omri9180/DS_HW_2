@@ -30,4 +30,8 @@ public class Node<T> {
     public Node<T> getPrev() {
         return prev;
     }
+
+    public T getData() {
+        return data;
+    }
 }
