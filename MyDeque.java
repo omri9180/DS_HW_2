@@ -19,6 +19,7 @@ public class MyDeque <T> {
             }
             temp.setPrev(newNode);
             newNode.setNext(temp);
+            this.head = newNode;
         }
     }
 
