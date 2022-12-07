@@ -3,19 +3,12 @@ public class MyDeque<T> {
     private Node<T> head = new Node<>(null);
 
     public boolean isEmpty() {
-        if (head == null) {
+        if (head.getData() == null) {
             return true;
         }
         return false;
     }
 
-    public T getHead() {
-        if (isEmpty()) {
-            throw new IllegalArgumentException("List is empty");
-        }
-
-        return this.head.getData();
-    }
 
     public T getEnd() {
         if (isEmpty()) {
@@ -45,21 +38,25 @@ public class MyDeque<T> {
 
 
     public T getAndRemoveEnd() {
-        Node<T> returnData;
+        Node<T> temp = head;
+        Node<T> backData;
         if (isEmpty()) {
             throw new IllegalArgumentException("List is empty");
         } else {
-            returnData = head;
-            Node<T> newEnd;
-            while (returnData.getNext() != null) {
-                returnData = returnData.getNext();
+            while (temp.getNext() != null) {
+                temp = temp.getNext();
             }
-            newEnd = returnData.getPrev();
-            newEnd.setNext(null);
-
+            backData = temp;
         }
-        return returnData.getData();
+        if (temp.getPrev() != null) {
+            temp = temp.getPrev();
+            temp.setNext(null);
+        } else {
+            temp = null;
+        }
+        return backData.getData();
     }
+
 
     public void addToStart(T data) {
         Node<T> newNode = new Node<>(data);
@@ -112,6 +109,18 @@ public class MyDeque<T> {
             head = after;
 
         }
+    }
+
+    public void setHead(Node<T> head) {
+        this.head = head;
+    }
+
+    public T getHead() {
+        if (isEmpty()) {
+            throw new IllegalArgumentException("List is empty");
+        }
+
+        return this.head.getData();
     }
 
 }
