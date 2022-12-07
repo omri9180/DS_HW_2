@@ -3,7 +3,7 @@ public class MyDeque<T> {
     private Node<T> head = new Node<>(null);
 
     public boolean isEmpty() {
-        if (head.getData() == null) {
+        if (head== null) {
             return true;
         }
         return false;
@@ -52,7 +52,9 @@ public class MyDeque<T> {
             temp = temp.getPrev();
             temp.setNext(null);
         } else {
-            temp = null;
+           //*********problem here
+            //*********problem here
+            //*********problem here
         }
         return backData.getData();
     }
