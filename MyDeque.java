@@ -1,12 +1,21 @@
 public class MyDeque<T> {
 
-    private Node<T> head = new Node<>(null);
+    private Node<T> head;
+    private Node<T> end;
+    private int counter;
+
+    public MyDeque() {
+        head = null;
+        end = null;
+        counter = 0;
+    }
+
+    public int getCounter() {
+        return counter;
+    }
 
     public boolean isEmpty() {
-        if (head== null) {
-            return true;
-        }
-        return false;
+        return head == null;
     }
 
 
@@ -14,89 +23,84 @@ public class MyDeque<T> {
         if (isEmpty()) {
             throw new IllegalArgumentException("List is empty");
         }
-        Node<T> returnData = head;
-        while (returnData.getNext() != null) {
-            returnData = returnData.getNext();
-        }
-
-        return returnData.getData();
+        return end.getData();
     }
 
 
     public T getAndRemoveHead() {
-        if (isEmpty()) {
-            throw new IllegalArgumentException("List is empty");
+        counter--;
+        if (this.isEmpty()) {
+            throw new NullPointerException("empty deque");
         }
-        Node<T> returnData = head;
-        Node<T> newHead = head.getNext();
+        Node<T> temp = new Node<T>(head.getData());
+        if (head.getNext() == null) {
+            head = end;
+            return temp.getData();
+        }
+        head = head.getNext();
+        head.setPrev(null);
+        return temp.getData();
 
-        head = newHead;
-        newHead.setPrev(null);
-
-        return returnData.getData();
     }
 
 
     public T getAndRemoveEnd() {
-        Node<T> temp = head;
-        Node<T> backData;
-        if (isEmpty()) {
-            throw new IllegalArgumentException("List is empty");
-        } else {
-            while (temp.getNext() != null) {
-                temp = temp.getNext();
+        counter--;
+        if (this.isEmpty())
+            throw new NullPointerException("empty deque");
+        else {
+            Node<T> temp = end;
+            if (end == head) {
+                end = null;
+                head = null;
+                return temp.getData();
             }
-            backData = temp;
+            end = end.getPrev();
+            end.setNext(null);
+            return temp.getData();
+
         }
-        if (temp.getPrev() != null) {
-            temp = temp.getPrev();
-            temp.setNext(null);
-        } else {
-           //*********problem here
-            //*********problem here
-            //*********problem here
-        }
-        return backData.getData();
     }
 
 
     public void addToStart(T data) {
+        counter++;
         Node<T> newNode = new Node<>(data);
-        if (isEmpty()) {
+        if (this.isEmpty()) {
             head = newNode;
         } else {
-            Node<T> temp = head;
-            while (temp.getPrev() != null) {
-                temp = temp.getPrev();
-            }
-            temp.setPrev(newNode);
-            newNode.setNext(temp);
-            this.head = newNode;
+            head.setPrev(newNode);
+            newNode.setNext(head);
+            head = head.getPrev();
         }
     }
 
-    public void addToEnd(T data) {
+    public T addToEnd(T data) {
+        counter++;
         Node<T> newNode = new Node<>(data);
         if (isEmpty()) {
             head = newNode;
+            end = head;
         } else {
-            Node<T> temp = head;
-            while (temp.getNext() != null) {
-                temp = temp.getNext();
-            }
-            temp.setNext(newNode);
-            newNode.setPrev(temp);
+            newNode.setPrev(end);
+            end.setNext(newNode);
+            end = end.getNext();
 
         }
+        return end.getData();
     }
 
     public void addFirst(T data) {
+        counter++;
         if (isEmpty()) {
-            head = new Node<>(data);
+            Node<T> temp = new Node<T>(data);
+            head = temp;
+            end = temp;
         } else {
             Node<T> first = new Node<>(data);
             this.head.setPrev(first);
             first.setNext(head);
+            head = first;
 
         }
     }
@@ -113,6 +117,10 @@ public class MyDeque<T> {
         }
     }
 
+    public void setEnd(Node<T> end) {
+        this.end = end;
+    }
+
     public void setHead(Node<T> head) {
         this.head = head;
     }
@@ -123,6 +131,15 @@ public class MyDeque<T> {
         }
 
         return this.head.getData();
+    }
+
+    public void printMyDeque() {
+        Node temp = head;
+        while (temp != null) {
+            System.out.println(temp.getData());
+            temp = temp.getNext();
+
+        }
     }
 
 }
