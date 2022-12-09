@@ -37,4 +37,8 @@ public class Node<T> {
 
 
 
+    public Node<T> getNode() {
+        return this;
+    }
+
 }

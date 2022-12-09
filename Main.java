@@ -1,6 +1,8 @@
+import java.util.ArrayList;
 
 public class Main {
     public static <T> void main(String[] args) {
+
         MyDeque q1 = new MyDeque<>();
         MyDeque qr = new MyDeque<>();
 
@@ -13,20 +15,21 @@ public class Main {
 
         MyDeque qSortted = new MyDeque<>();
         qSortted.addToEnd(1);
-//        qSortted.addToEnd(1);
         qSortted.addToEnd(2);
-//        qSortted.addToEnd(2);
+        qSortted.addToEnd(2);
         qSortted.addToEnd(3);
-//        qSortted.addToEnd(3);
+        qSortted.addToEnd(3);
+        qSortted.addToEnd(4);
+        qSortted.addToEnd(5);
 
 
         //----Reverse Dequeue-----
-        System.out.println("Before: \n" + q1);
+        System.out.println("Reverse before: \n" + q1 + "\n");
 
         while (!q1.isEmpty()) {
             qr.addToEnd(q1.getAndRemoveEnd());
         }
-        System.out.println("After: \n" + qr);
+        System.out.println("Reverse after: \n" + qr + "\n");
         //----End-----
 
         //----Rearrangement-----
@@ -38,37 +41,47 @@ public class Main {
                 q1.addToEnd(qr.getAndRemoveHead());
             }
         }
-        System.out.println("Rearrange: \n" + q1);
+        System.out.println("Rearrange: \n" + q1 + "\n");
         //----End-----
 
         //----Delete Double-----
-
+        Node<T> headNode = qSortted.getHeadNode();
+        while (headNode != null) {
+            Node<T> temp = headNode;
+            while (temp != null && temp.getData().equals(headNode.getData())) {
+                temp = temp.getNext();
+            }
+            headNode.setNext(temp);
+            headNode = headNode.getNext();
+        }
+        qSortted.addToStart(headNode);
+        System.out.println("Duplicated remove: \n" + qSortted + "\n");
 
         //----End-----
 
         //----Reverse list-----
-//        Node<T> revList = qSortted.getHeadNode();
-//
-//        while (revList.getData() != null) {
-//
-//        }
-//        revList = revList.getPrev();
-//        Node<T> str = revList;
-//        while (str.getNext() != null) {
-//            System.out.print(str.getData() + " <-> ");
-//            str = str.getNext();
-//        }
+        Node<T> revList = qSortted.getHeadNode();
+
+        while (revList.getNext()!=null){
+            revList = revList.getNext();
+        }
+        while (revList.getPrev()!=null){
+            revList.setNext(revList.getPrev());
+            revList.setPrev(revList.getNext().getPrev());
+        }
+        qSortted.addToStart(revList);
+        System.out.println(qSortted);
 
         //----End-----
         //----circle list-----
-        Node<T> first = q1.getHeadNode();
-        Node<T> temp = first.getPrev();
-        if (temp == null) {
-            System.out.println("The given linked list is not a circular list");
-        } else if (temp.getNext() == first && first.getPrev() == temp) {
-            System.out.println("The given linked list is a circular list");
-
-        }
+//        Node<T> first = q1.getHeadNode();
+//        Node<T> temp = first.getPrev();
+//        if (temp == null) {
+//            System.out.println("The given linked list is not a circular list");
+//        } else if (temp.getNext() == first && first.getPrev() == temp) {
+//            System.out.println("The given linked list is a circular list");
+//
+//        }
 
 
         //----End-----
