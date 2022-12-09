@@ -26,6 +26,14 @@ public class MyDeque<T> {
         return end.getData();
     }
 
+    public T getData(){
+        return this.getData();
+    }
+
+    public void setNext(Node<T> next){
+        this.setNext(next);
+    }
+
 
     public T getAndRemoveHead() {
         counter--;
@@ -133,13 +141,23 @@ public class MyDeque<T> {
         return this.head.getData();
     }
 
-    public void printMyDeque() {
-        Node temp = head;
-        while (temp != null) {
-            System.out.println(temp.getData());
-            temp = temp.getNext();
+    public T getNext(){
+        return this.getNext();
+    }
 
+    public Node<T> getHeadNode(){
+        return this.head;
+    }
+
+    public String toString() {
+        Node temp = head;
+        String toStr = null;
+        while (temp != null) {
+            toStr = toStr + " <-> " + temp.getData();
+            temp = temp.getNext();
         }
+        toStr = toStr + " <-> null";
+        return toStr;
     }
 
 }
