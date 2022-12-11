@@ -15,7 +15,7 @@ public class MyDeque<T> {
     }
 
     public boolean isEmpty() {
-        return getHead() == null;
+        return this==null;
     }
 
 
@@ -96,7 +96,17 @@ public class MyDeque<T> {
             setEnd(newNode);
         }
     }
+    public void add(T data){
+        counter++;
+        Node<T> temp = new Node<>(data);
+        if (!isEmpty()){
+            setHead(temp);
+        }else {
+            Node<T> next = new Node<>(data);
+            this.setNext(next);
 
+        }
+    }
     public void addFirst(T data) {
         counter++;
         Node<T> temp = new Node<T>(data);
@@ -115,7 +125,7 @@ public class MyDeque<T> {
     }
 
     public void setHead(Node<T> head) {
-        setHead(head);
+        this.head = head;
     }
 
     public Node<T> getHead() {
