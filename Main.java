@@ -70,6 +70,7 @@ public class Main {
             revList.setPrev(revList.getNext().getPrev());
         }
         qSortted.addToStart(revList);
+
         System.out.println(qSortted);
 
         //----End-----
