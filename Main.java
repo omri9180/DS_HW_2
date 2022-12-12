@@ -13,49 +13,49 @@ public class Main {
         q1.add(25);
         q1.add(2);
 
-//        MyDeque qSortted = new MyDeque<>();
-//        qSortted.addToEnd(1);
-//        qSortted.addToEnd(2);
-//        qSortted.addToEnd(2);
-//        qSortted.addToEnd(3);
-//        qSortted.addToEnd(3);
-//        qSortted.addToEnd(4);
-//        qSortted.addToEnd(5);
+        MyDeque qSortted = new MyDeque<>();
+        qSortted.add(1);
+        qSortted.add(2);
+        qSortted.add(2);
+        qSortted.add(3);
+        qSortted.add(3);
+        qSortted.add(4);
+        qSortted.add(5);
 
 
         //----Reverse Dequeue-----
         System.out.println("Reverse before: \n" + q1 + "\n");
 
-//        while (!q1.isEmpty()) {
-//            qr.addToEnd(q1.getAndRemoveEnd());
-//        }
-//        System.out.println("Reverse after: \n" + qr + "\n");
-//        //----End-----
-//
-//        //----Rearrangement-----
-//        int mid = (int) Math.floor(qr.getCounter() / 2);
-//        for (int i = 0; i < mid * 2; i++) {
-//            if (i < mid) {
-//                q1.addFirst(qr.getAndRemoveEnd());
-//            } else {
-//                q1.addToEnd(qr.getAndRemoveHead());
-//            }
-//        }
-//        System.out.println("Rearrange: \n" + q1 + "\n");
-//        //----End-----
-//
-//        //----Delete Double-----
-//        Node<T> headNode = qSortted.getHeadNode();
-//        while (headNode != null) {
-//            Node<T> temp = headNode;
-//            while (temp != null && temp.getData().equals(headNode.getData())) {
-//                temp = temp.getNext();
-//            }
-//            headNode.setNext(temp);
-//            headNode = headNode.getNext();
-//        }
-//        qSortted.addToStart(headNode);
-//        System.out.println("Duplicated remove: \n" + qSortted + "\n");
+        while (!q1.isEmpty()) {
+            qr.add(q1.getAndRemoveEnd());
+        }
+        System.out.println("Reverse after: \n" + qr + "\n");
+        //----End-----
+
+        //----Rearrangement-----
+        int mid = (int) Math.floor(qr.getCounter() / 2);
+        for (int i = 0; i < mid * 2; i++) {
+            if (i < mid) {
+                q1.addFirst(qr.getAndRemoveEnd());
+            } else {
+                q1.addToEnd(qr.getAndRemoveHead());
+            }
+        }
+        System.out.println("Rearrange: \n" + q1 + "\n");
+        //----End-----
+
+        //----Delete Double-----
+        Node<T> headNode = qSortted.getHeadNode();
+        while (headNode != null) {
+            Node<T> temp = headNode;
+            while (temp != null && temp.getData().equals(headNode.getData())) {
+                temp = temp.getNext();
+            }
+            headNode.setNext(temp);
+            headNode = headNode.getNext();
+        }
+        qSortted.addToStart(headNode);
+        System.out.println("Duplicated remove: \n" + qSortted + "\n");
 
         //----End-----
 

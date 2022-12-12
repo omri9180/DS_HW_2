@@ -5,8 +5,8 @@ public class MyDeque<T> {
     private int counter;
 
     public MyDeque() {
-        head = null;
-        end = null;
+//        head = null;
+//        end = null;
         counter = 0;
     }
 
@@ -15,7 +15,7 @@ public class MyDeque<T> {
     }
 
     public boolean isEmpty() {
-        return this==null;
+        return head == null;
     }
 
 
@@ -36,7 +36,7 @@ public class MyDeque<T> {
     }
 
     public void setNext(Node<T> next) {
-        this.setNext(next);
+        getEnd().setNext(next);
     }
 
 
@@ -58,19 +58,23 @@ public class MyDeque<T> {
 
     public T getAndRemoveEnd() {
         counter--;
+        Node<T> temp = getEnd();
         if (this.isEmpty())
             throw new NullPointerException("empty deque");
         else {
-            Node<T> temp = getEnd();
-            if (getEnd() == getHead()) {
+            Node<T> removeNode = getHead();
+            if (removeNode.getNext()==null){
                 setHead(null);
-                setEnd(null);
-                return temp.getData();
+               return removeNode.getData();
             }
-            setEnd(null);
-            return temp.getData();
+            while (removeNode.getNext().getNext()!=null){
+                removeNode = removeNode.getNext();
+            }
+            removeNode.setNext(null);
+                       return temp.getData();
 
         }
+
     }
 
 
@@ -86,6 +90,20 @@ public class MyDeque<T> {
         }
     }
 
+    public void add(T data) {
+        counter++;
+        Node<T> temp = new Node<>(data);
+        if (isEmpty()) {
+            setHead(temp);
+        } else {
+            Node<T> check = getHead();
+            while (check.getNext() != null) {
+                check = check.getNext();
+            }
+            check.setNext(temp);
+        }
+    }
+
     public void addToEnd(T data) {
         counter++;
         Node<T> newNode = new Node<>(data);
@@ -96,17 +114,7 @@ public class MyDeque<T> {
             setEnd(newNode);
         }
     }
-    public void add(T data){
-        counter++;
-        Node<T> temp = new Node<>(data);
-        if (!isEmpty()){
-            setHead(temp);
-        }else {
-            Node<T> next = new Node<>(data);
-            this.setNext(next);
 
-        }
-    }
     public void addFirst(T data) {
         counter++;
         Node<T> temp = new Node<T>(data);
@@ -121,7 +129,7 @@ public class MyDeque<T> {
 
 
     public void setEnd(Node<T> end) {
-        setEnd(end);
+        this.end = end;
     }
 
     public void setHead(Node<T> head) {
@@ -150,10 +158,10 @@ public class MyDeque<T> {
         Node<T> temp = getHead();
         String toStr = null;
         while (temp != null) {
-            toStr = toStr + " <-> " + temp.getData();
+            toStr = toStr + " -> " + temp.getData();
             temp = temp.getNext();
         }
-        toStr = toStr + " <-> null";
+        toStr = toStr + " -> null";
         return toStr;
     }
 
